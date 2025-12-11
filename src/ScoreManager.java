@@ -4,27 +4,27 @@ import java.util.*;
 public class ScoreManager {
     private List<ScoreEntry> highScores;
     private static final String SCORES_FILE = "Assets/data/highscores.txt";
-    
+
     public ScoreManager() {
         highScores = new ArrayList<>();
         loadScores();
     }
-    
+
     public void saveScore(String playerName, int score) {
         highScores.add(new ScoreEntry(playerName, score));
         Collections.sort(highScores);
-        
+
         if (highScores.size() > 10) {
             highScores = highScores.subList(0, 10);
         }
-        
+
         saveScoresToFile();
     }
-    
+
     public List<ScoreEntry> getHighScores() {
         return new ArrayList<>(highScores);
     }
-    
+
     private void loadScores() {
         try {
             File file = new File(SCORES_FILE);
@@ -45,12 +45,12 @@ public class ScoreManager {
             System.err.println("Failed to load high scores");
         }
     }
-    
+
     private void saveScoresToFile() {
         try {
             File file = new File(SCORES_FILE);
             file.getParentFile().mkdirs();
-            
+
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             for (ScoreEntry entry : highScores) {
                 writer.write(entry.getName() + "," + entry.getScore());
@@ -66,20 +66,20 @@ public class ScoreManager {
 class ScoreEntry implements Comparable<ScoreEntry> {
     private String name;
     private int score;
-    
+
     public ScoreEntry(String name, int score) {
         this.name = name;
         this.score = score;
     }
-    
+
     public String getName() {
         return name;
     }
-    
+
     public int getScore() {
         return score;
     }
-    
+
     @Override
     public int compareTo(ScoreEntry other) {
         return Integer.compare(other.score, this.score);
