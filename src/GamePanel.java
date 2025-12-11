@@ -30,18 +30,23 @@ public class GamePanel extends GLCanvas implements GLEventListener, KeyListener,
         glContext = drawable.getGL();
         GL gl = glContext;
         
+        // إعدادات مهمة لإزالة الحدود السوداء والشفافية
         gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         
+        // تفعيل وتهيئة الشفافية
         gl.glEnable(GL.GL_BLEND);
         gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
         
+        // تفعيل النسيج
         gl.glEnable(GL.GL_TEXTURE_2D);
         
+        // إعدادات إضافية لمنع القطع الأثرية
         gl.glDisable(GL.GL_DEPTH_TEST);
         gl.glShadeModel(GL.GL_SMOOTH);
         gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
         gl.glHint(GL.GL_POLYGON_SMOOTH_HINT, GL.GL_NICEST);
         
+        // هنا يتم إنشاء المحرك مع تمرير GL
         gameEngine = new GameEngine(1100, 800, glContext);
     }
     
@@ -49,6 +54,7 @@ public class GamePanel extends GLCanvas implements GLEventListener, KeyListener,
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
         
+        // إعادة تعيين إعدادات الشفافية في كل إطار
         gl.glEnable(GL.GL_BLEND);
         gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
         
@@ -60,6 +66,7 @@ public class GamePanel extends GLCanvas implements GLEventListener, KeyListener,
             gameEngine.render(gl);
         }
         
+        // إعادة تعيين اللون الأبيض لمنع أي ألوان متبقية
         gl.glColor3f(1.0f, 1.0f, 1.0f);
     }
     

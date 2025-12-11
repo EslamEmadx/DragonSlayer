@@ -4,8 +4,9 @@ import com.sun.opengl.util.texture.Texture;
 public class Obstacle {
     private float x, y;
     private float width, height;
-    private int type;
+    private int type; // 1-10 for different natural objects
     
+    // نسبة الـ collision من حجم الصورة (0.6 = 60% من الصورة)
     private float collisionRatio = 0.65f;
     
     public Obstacle(float x, float y, int type, TextureManager tm) {
@@ -13,6 +14,7 @@ public class Obstacle {
         this.y = y;
         this.type = type;
         
+        // Vary size based on type
         if (type <= 3) {
             width = 80;
             height = 80;
@@ -32,6 +34,7 @@ public class Obstacle {
         }
     }
     
+    // الموقع الفعلي للـ collision (مع المسافة من الحواف)
     public float getCollisionX() {
         float padding = width * (1 - collisionRatio) / 2;
         return x + padding;
@@ -42,6 +45,7 @@ public class Obstacle {
         return y + padding;
     }
     
+    // الحجم الفعلي للـ collision (أصغر من الصورة)
     public float getCollisionWidth() {
         return width * collisionRatio;
     }
@@ -50,6 +54,7 @@ public class Obstacle {
         return height * collisionRatio;
     }
     
+    // الدوال الأصلية للرسم
     public float getX() {
         return x;
     }
